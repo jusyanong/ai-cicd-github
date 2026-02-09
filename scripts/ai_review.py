@@ -5,7 +5,7 @@ client = genai.Client()
 
 def review_code(diff_text):
     """Send a code diff to Gemini for review."""
-    prompt = f"""
+    prompt = f
     response = client.models.generate_content(
         model="gemini-2.5-flash", contents=prompt
     )
