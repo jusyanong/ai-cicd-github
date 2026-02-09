@@ -21,18 +21,4 @@ if __name__ == "__main__":
 
     review = review_code(diff_content)
     print(review)
-from google import genai
-import sys
-
-client = genai.Client()
-
-if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        diff_file = sys.argv[1]
-        with open(diff_file, "r") as f:
-            diff_content = f.read()
-    else:
-        diff_content = sys.stdin.read()
-
-    review = review_code(diff_content)
-    print(review)
+    
