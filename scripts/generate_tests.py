@@ -2,11 +2,35 @@ import ast
 import os
 import sys
 from google import genai
-from generate_tests import generate_tests_for_function
 
 # Define a function that takes a file path and extract function info
 def extract_functions(file_path):
     """Parse a Python file and extract function definitions."""
+    # Open the file and read its contents into string
+    with open(file_path, 'r') as f:
+        source = f.read()
+
+    # Parse the source code into AST tree
+    tree = ast.parse(source)
+    functions = []
+
+    # Walk through every node in the AST
+    for node in ast.walk(tree):
+        # Check if this node is a function definition
+        if isinstance(node, ast.FunctionDef):
+            func_name = node.name
+            args = [arg.arg for arg in node.args.args]
+            docstring = ast.get_docstring(node) or ""
+            func_source = ast.get_source_segment(source, node)
+
+            functions.append({
+                'name': func_name,
+                'args': args,
+                'docstring': docstring,
+                'source': func_source
+            })
+
+    return functions
 
 def generate_tests_for_function(func_info):
     """Use Gemini to generate pytest tests for a function."""
@@ -37,33 +61,6 @@ Return ONLY the Python test code, no explanations.
     )
 
     return response.text
-
-
-    # Open the file and read its contents into string
-    with open(file_path, 'r') as f:
-        source = f.read()
-
-    # Parse the source code into AST tree
-    tree = ast.parse(source)
-    functions = []
-
-    # Walk through every node in the AST
-    for node in ast.walk(tree):
-        # Check if this node is a function definition
-        if isinstance(node, ast.FunctionDef):
-            func_name = node.name
-            args = [arg.arg for arg in node.args.args]
-            docstring = ast.get_docstring(node) or ""
-            func_source = ast.get_source_segment(source, node)
-
-            functions.append({
-                'name': func_name,
-                'args': args,
-                'docstring': docstring,
-                'source': func_source
-            })
-
-    return functions
 
 # Main function
 def main():
