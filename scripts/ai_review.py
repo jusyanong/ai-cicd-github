@@ -5,7 +5,7 @@ client = genai.Client()
 
 def review_code(diff_text):
     """Send a code diff to Gemini for review."""
-    prompt = f """You are an expert code reviewer. Review the following code diff and provide feedback.
+    prompt = f"""You are an expert code reviewer. Review the following code diff and provide feedback.
     Focus on:
     - Security vulnerabilities
     - Bug risks
