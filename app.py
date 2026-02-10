@@ -20,7 +20,7 @@ def multiply(a: int, b: int) -> int:
     """Multiply two numbers together."""
     return a * b
 
-def factorial(n):
+def factorial(n: int) -> int:
     """Compute the factorial of a non-negative integer using recursion."""
     if n < 0:
         raise ValueError("factorial() is not defined for negative numbers")
