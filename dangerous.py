@@ -1,7 +1,10 @@
 import subprocess
+import os
+import shlex
 
 def run_command(user_input):
     """Run a shell command from user input."""
-    subprocess.call(user_input, shell=True)
+    args = shlex.split(user_input)
+    subprocess.call(args, check=False)
 
-API_KEY = "sk-live-abc123def456"
+API_KEY = os.getenv("API_KEY")
