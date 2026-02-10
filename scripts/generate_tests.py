@@ -2,7 +2,6 @@ import ast
 import os
 import sys
 from google import genai
-from extract_functions import extract_functions
 from generate_tests import generate_tests_for_function
 
 # Define a function that takes a file path and extract function info
